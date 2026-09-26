@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian: #0B0B0A;
+  --color-carbon: #141413;
+  --color-warm-white: #F3F0E8;
+  --color-stone: #8E8A82;
+  --color-soft-metal: #B8B1A5;
+  --color-champagne: #C5A46D;
+  --color-pure-white: #FFFFFF;
+
+  --color-background: var(--color-obsidian);
+  --color-foreground: var(--color-warm-white);
+  --color-border: var(--color-soft-metal);
+
+  --font-display: var(--font-bodoni-moda);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-space-grotesk);
+}
+
+@layer base {
+  :root {
+    --background: var(--color-obsidian);
+    --foreground: var(--color-warm-white);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 400;
+  }
+}
+
+/* Custom scrollbar for dark cinematic feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-carbon);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-stone);
+}
