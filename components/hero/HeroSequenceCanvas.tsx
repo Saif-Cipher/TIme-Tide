@@ -21,8 +21,8 @@ export function HeroSequenceCanvas({ progress }: HeroSequenceCanvasProps) {
   const requestRef = useRef<number>(0);
   const lastDrawnFrameRef = useRef<number>(-1);
 
-  // Helper to draw image fitted inside canvas
-  const renderImageToCanvas = (
+  // Helper to draw image fitted / covered inside canvas
+  const renderImageToCanvas = useCallback((
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
     img: HTMLImageElement
@@ -30,13 +30,12 @@ export function HeroSequenceCanvas({ progress }: HeroSequenceCanvasProps) {
     const cw = canvas.width;
     const ch = canvas.height;
 
-    // Fill background with obsidian
-    ctx.fillStyle = "#0B0B0A";
+    // Pitch black background (#000000) matching the animation frame background 100%
+    ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, cw, ch);
 
-    const imgW = img.naturalWidth;
-    const imgH = img.naturalHeight;
-    const imgRatio = imgW / imgH;
+    const imgW = img.naturalWidth || 2800;
+    const imgH = img.naturalHeight || 2100;
     const canvasRatio = cw / ch;
 
     let dw = cw;
@@ -44,21 +43,43 @@ export function HeroSequenceCanvas({ progress }: HeroSequenceCanvasProps) {
     let dx = 0;
     let dy = 0;
 
-    // We use "contain" with a subtle scale boost so the watch fills nicely without clipping
-    if (canvasRatio > imgRatio) {
-      // Screen is wider than image
-      dh = ch;
-      dw = ch * imgRatio;
-      dx = (cw - dw) / 2;
+    // Landscape / Desktop & Tablet Landscape
+    if (canvasRatio >= 1.0) {
+      // Scale to fill full width, but cap height to 1.35x canvas height so exploded parts are never clipped
+      const rawCoverScale = Math.max(cw / imgW, ch / imgH);
+      const maxCoverScale = (ch * 1.35) / imgH;
+      const scale = Math.min(rawCoverScale, maxCoverScale);
+
+      dw = imgW * scale;
+      dh = imgH * scale;
+
+      const baseDx = (cw - dw) / 2;
+      const baseDy = (ch - dh) / 2;
+
+      // On widescreen displays, offset watch slightly to the right to create an editorial left safe-zone
+      const rightShift = canvasRatio >= 1.2 ? Math.round(cw * 0.08) : 0;
+
+      dx = Math.round(baseDx + rightShift);
+      dy = Math.round(baseDy);
     } else {
-      // Screen is taller than image (mobile/tablet portrait)
-      dw = cw;
-      dh = cw / imgRatio;
-      dy = (ch - dh) / 2;
+      // Portrait / Mobile & Tablet Portrait
+      // In portrait, fit watch width comfortably with breathing room so dial and lugs are fully visible
+      const targetWatchWidthRatio = 0.88;
+      const watchWidthInImg = imgW * 0.65;
+      const scale = (cw * targetWatchWidthRatio) / watchWidthInImg;
+
+      dw = imgW * scale;
+      dh = imgH * scale;
+
+      dx = Math.round((cw - dw) / 2);
+      // Vertically center watch at 48% height
+      dy = Math.round((ch * 0.48) - (dh / 2));
     }
 
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
     ctx.drawImage(img, dx, dy, dw, dh);
-  };
+  }, []);
 
   // Draw a specific frame to canvas
   const drawFrame = useCallback((frameIdx: number) => {
@@ -79,7 +100,7 @@ export function HeroSequenceCanvas({ progress }: HeroSequenceCanvasProps) {
 
     renderImageToCanvas(ctx, canvas, img);
     lastDrawnFrameRef.current = frameIdx;
-  }, []);
+  }, [renderImageToCanvas]);
 
   // 1. Initial Load: Load frame 1 immediately, then background preload remaining frames
   useEffect(() => {
@@ -94,7 +115,7 @@ export function HeroSequenceCanvas({ progress }: HeroSequenceCanvasProps) {
       setFirstFrameReady(true);
       drawFrame(0);
 
-      // Now preload the remaining 49 frames sequentially / in chunks
+      // Now preload the remaining 49 frames
       let loaded = 1;
       for (let i = 2; i <= FRAME_COUNT; i++) {
         const img = new Image();
@@ -158,15 +179,15 @@ export function HeroSequenceCanvas({ progress }: HeroSequenceCanvasProps) {
   }, [progress, drawFrame]);
 
   return (
-    <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+    <div className="absolute inset-0 z-10 w-full h-full pointer-events-none overflow-hidden">
       <canvas
         ref={canvasRef}
-        className="w-full h-full object-contain transition-opacity duration-700 ease-out"
+        className="absolute inset-0 w-full h-full block transition-opacity duration-700 ease-out"
         style={{ opacity: firstFrameReady ? 1 : 0 }}
       />
       {/* Subtle loader indicator if on slow network */}
       {!firstFrameReady && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-30 bg-obsidian">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-30 bg-black">
           <div className="w-12 h-[1px] bg-champagne/40 animate-pulse" />
           <span className="font-mono text-xs tracking-[0.3em] text-stone uppercase">
             Initiating Sequence {loadPercentage > 0 ? `${loadPercentage}%` : ""}

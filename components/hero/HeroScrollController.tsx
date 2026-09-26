@@ -43,9 +43,9 @@ export function HeroScrollController() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full h-[450vh] bg-obsidian">
-      {/* Sticky viewport that stays fixed while scrolling */}
-      <div className="sticky top-0 w-full h-screen overflow-hidden bg-obsidian">
+    <div ref={containerRef} className="relative w-full h-[450vh] bg-black">
+      {/* Sticky viewport that stays fixed while scrolling — true full-screen 100vw and 100svh/100vh */}
+      <div className="sticky top-0 w-full h-screen h-[100svh] overflow-hidden bg-black">
         <HeroEnvironment />
         <HeroSequenceCanvas progress={progress} />
         <HeroCopy progress={progress} />
