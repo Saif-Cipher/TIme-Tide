@@ -20,6 +20,9 @@ export function HeroSequenceCanvas({ progress }: HeroSequenceCanvasProps) {
   const [loadPercentage, setLoadPercentage] = useState(0);
   const requestRef = useRef<number>(0);
   const lastDrawnFrameRef = useRef<number>(-1);
+  const currentFrameIndexRef = useRef<number>(0);
+  const progressRef = useRef<number>(progress);
+  progressRef.current = progress;
 
   // Helper to draw image fitted / covered inside canvas
   const renderImageToCanvas = useCallback((
@@ -72,8 +75,8 @@ export function HeroSequenceCanvas({ progress }: HeroSequenceCanvasProps) {
       dh = imgH * scale;
 
       dx = Math.round((cw - dw) / 2);
-      // Vertically center watch at 48% height
-      dy = Math.round((ch * 0.48) - (dh / 2));
+      // Vertically position watch at 54% height to leave upper safe zone completely clear
+      dy = Math.round((ch * 0.54) - (dh / 2));
     }
 
     ctx.imageSmoothingEnabled = true;
@@ -88,12 +91,25 @@ export function HeroSequenceCanvas({ progress }: HeroSequenceCanvasProps) {
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
+    currentFrameIndexRef.current = frameIdx;
+
     const img = imagesRef.current[frameIdx];
     if (!img || !img.complete || img.naturalWidth === 0) {
-      // Fallback to closest loaded frame if available
-      const fallback = imagesRef.current.find(im => im && im.complete && im.naturalWidth > 0);
-      if (fallback) {
-        renderImageToCanvas(ctx, canvas, fallback);
+      // Find closest loaded frame if target frame is still downloading
+      let closest: HTMLImageElement | null = null;
+      let minDiff = Infinity;
+      for (let i = 0; i < FRAME_COUNT; i++) {
+        const candidate = imagesRef.current[i];
+        if (candidate && candidate.complete && candidate.naturalWidth > 0) {
+          const diff = Math.abs(i - frameIdx);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closest = candidate;
+          }
+        }
+      }
+      if (closest) {
+        renderImageToCanvas(ctx, canvas, closest);
       }
       return;
     }
@@ -106,29 +122,61 @@ export function HeroSequenceCanvas({ progress }: HeroSequenceCanvasProps) {
   useEffect(() => {
     let isCancelled = false;
 
-    // Prioritize frame 1
-    const firstImg = new Image();
-    firstImg.src = getFramePath(1);
-    firstImg.onload = () => {
-      if (isCancelled) return;
-      imagesRef.current[0] = firstImg;
-      setFirstFrameReady(true);
-      drawFrame(0);
-
-      // Now preload the remaining 49 frames
-      let loaded = 1;
+    const preloadRemaining = () => {
+      let loadedCount = 1;
       for (let i = 2; i <= FRAME_COUNT; i++) {
-        const img = new Image();
         const frameIndex = i - 1;
-        img.src = getFramePath(i);
+        if (imagesRef.current[frameIndex]?.complete) {
+          loadedCount++;
+          continue;
+        }
+
+        const img = new Image();
         img.onload = () => {
-          if (isCancelled) return;
           imagesRef.current[frameIndex] = img;
-          loaded++;
-          setLoadPercentage(Math.round((loaded / FRAME_COUNT) * 100));
+          loadedCount++;
+          if (!isCancelled) {
+            setLoadPercentage(Math.round((loadedCount / FRAME_COUNT) * 100));
+          }
+          // If this newly loaded frame is the one currently requested, draw it
+          if (frameIndex === currentFrameIndexRef.current) {
+            drawFrame(frameIndex);
+          }
         };
+        img.onerror = () => {
+          console.error(`[HeroSequenceCanvas] Failed to load frame ${i}: ${getFramePath(i)}`);
+        };
+        img.src = getFramePath(i);
       }
     };
+
+    // Check if frame 1 is already cached/loaded
+    if (imagesRef.current[0] && imagesRef.current[0].complete && imagesRef.current[0].naturalWidth > 0) {
+      setFirstFrameReady(true);
+      drawFrame(0);
+      preloadRemaining();
+      return;
+    }
+
+    const firstImg = new Image();
+    const onFirstLoad = () => {
+      imagesRef.current[0] = firstImg;
+      if (!isCancelled) {
+        setFirstFrameReady(true);
+      }
+      drawFrame(0);
+      preloadRemaining();
+    };
+
+    firstImg.onload = onFirstLoad;
+    firstImg.onerror = () => {
+      console.error(`[HeroSequenceCanvas] Failed to load initial frame 1: ${getFramePath(1)}`);
+    };
+    firstImg.src = getFramePath(1);
+
+    if (firstImg.complete && firstImg.naturalWidth > 0) {
+      onFirstLoad();
+    }
 
     return () => {
       isCancelled = true;
@@ -136,6 +184,7 @@ export function HeroSequenceCanvas({ progress }: HeroSequenceCanvasProps) {
   }, [drawFrame]);
 
   // 2. Resize handler with DPR support capped at 2 for performance
+  // Note: Only depends on [drawFrame], NOT on progress, so canvas buffer is never wiped during scroll!
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -150,17 +199,17 @@ export function HeroSequenceCanvas({ progress }: HeroSequenceCanvasProps) {
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
 
-      // Redraw current frame
-      const currentIdx = Math.max(0, Math.min(FRAME_COUNT - 1, Math.floor(progress * (FRAME_COUNT - 1))));
+      // Redraw current frame at new canvas dimensions
+      const currentIdx = Math.max(0, Math.min(FRAME_COUNT - 1, Math.floor(progressRef.current * (FRAME_COUNT - 1))));
       drawFrame(currentIdx);
     };
 
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [drawFrame, progress]);
+  }, [drawFrame]);
 
-  // 3. React to progress changes
+  // 3. React to progress changes (Scroll scrubbing)
   useEffect(() => {
     const targetIdx = Math.max(0, Math.min(FRAME_COUNT - 1, Math.floor(progress * (FRAME_COUNT - 1))));
     if (targetIdx === lastDrawnFrameRef.current) return;

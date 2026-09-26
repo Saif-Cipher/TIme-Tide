@@ -13,13 +13,13 @@ export function HeroEnvironment() {
       />
 
       {/* 2. Desktop Left-Side Vignette: ensures editorial safe zone on left has supreme contrast */}
-      <div className="hidden lg:block absolute inset-y-0 left-0 w-[52%] bg-gradient-to-r from-black via-black/70 to-transparent z-[12] pointer-events-none" />
+      <div className="hidden lg:block absolute inset-y-0 left-0 w-[52%] bg-gradient-to-r from-black via-black/70 to-transparent z-[5] pointer-events-none" />
 
       {/* 3. Mobile Top Vignette: ensures header safe zone has perfect contrast */}
-      <div className="lg:hidden absolute top-0 inset-x-0 h-52 bg-gradient-to-b from-black via-black/60 to-transparent z-[12] pointer-events-none" />
+      <div className="lg:hidden absolute top-0 inset-x-0 h-52 bg-gradient-to-b from-black via-black/60 to-transparent z-[5] pointer-events-none" />
 
       {/* 4. Bottom shadow overlay blending smoothly into Section 2 (#0B0B0A obsidian) */}
-      <div className="absolute bottom-0 inset-x-0 h-40 sm:h-52 bg-gradient-to-t from-obsidian via-obsidian/75 to-transparent z-[12] pointer-events-none" />
+      <div className="absolute bottom-0 inset-x-0 h-40 sm:h-52 bg-gradient-to-t from-obsidian via-obsidian/75 to-transparent z-[5] pointer-events-none" />
     </div>
   );
 }

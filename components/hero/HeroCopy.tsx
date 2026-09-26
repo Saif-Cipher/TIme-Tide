@@ -37,7 +37,7 @@ export function HeroCopy({ progress }: HeroCopyProps) {
       </div>
 
       {/* Main Content Stage: Left column on desktop, upper safe-zone on mobile */}
-      <div className="relative flex-1 flex flex-col justify-start lg:justify-center items-center lg:items-start pt-6 sm:pt-8 lg:pt-0">
+      <div className="relative flex-1 flex flex-col justify-start lg:justify-center items-center lg:items-start pt-4 sm:pt-8 lg:pt-0">
         
         {/* PHASE 01: WATCH INTRODUCTION */}
         <div
@@ -49,13 +49,13 @@ export function HeroCopy({ progress }: HeroCopyProps) {
               : "opacity-0 -translate-y-8 scale-95 pointer-events-none"
           )}
         >
-          <span className="font-mono text-[11px] sm:text-xs tracking-[0.3em] text-champagne uppercase">
+          <span className="font-mono text-[10px] sm:text-xs tracking-[0.3em] text-champagne uppercase">
             Curated Timepieces
           </span>
-          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-[0.14em] text-warm-white font-normal uppercase leading-[1.08] mt-3 sm:mt-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-[0.14em] text-warm-white font-normal uppercase leading-[1.08] mt-2 sm:mt-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
             TIME<br className="hidden sm:inline" /> SHOULD BE<br />WORN.
           </h1>
-          <p className="font-sans text-stone text-xs sm:text-sm lg:text-base max-w-sm sm:max-w-md tracking-wide font-light leading-relaxed mt-3 sm:mt-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+          <p className="hidden sm:block font-sans text-stone text-xs sm:text-sm lg:text-base max-w-sm sm:max-w-md tracking-wide font-light leading-relaxed mt-3 sm:mt-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
             Curated watches for modern life. Affordable-premium horology selected for restraint, proportion, and quiet endurance.
           </p>
 
@@ -86,19 +86,19 @@ export function HeroCopy({ progress }: HeroCopyProps) {
               : "opacity-0 -translate-y-8 scale-95 pointer-events-none"
           )}
         >
-          <span className="font-mono text-[11px] sm:text-xs tracking-[0.3em] text-champagne uppercase">
+          <span className="font-mono text-[10px] sm:text-xs tracking-[0.3em] text-champagne uppercase">
             Phase 02 // Precision Geometry
           </span>
-          <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl tracking-[0.12em] text-warm-white font-normal uppercase leading-tight mt-3 sm:mt-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+          <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl tracking-[0.12em] text-warm-white font-normal uppercase leading-tight mt-2 sm:mt-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
             SCULPTED IN STEEL
           </h2>
-          <p className="font-sans text-stone text-xs sm:text-sm lg:text-base max-w-sm sm:max-w-md leading-relaxed font-light mt-3 sm:mt-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+          <p className="hidden sm:block font-sans text-stone text-xs sm:text-sm lg:text-base max-w-sm sm:max-w-md leading-relaxed font-light mt-3 sm:mt-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
             Surgical-grade 316L stainless steel casework. High-polish beveled edges meeting brushed satin surfaces designed to command light.
           </p>
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 mt-5 font-mono text-[10px] sm:text-xs tracking-widest text-soft-metal">
-            <span className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-sm">CASE: 43.5 MM</span>
-            <span className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-sm">316L BRUSHED</span>
-            <span className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-sm">200M WATER</span>
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 mt-3 sm:mt-5 font-mono text-[9px] sm:text-xs tracking-widest text-soft-metal">
+            <span className="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-white/5 border border-white/10 rounded-sm">CASE: 43.5 MM</span>
+            <span className="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-white/5 border border-white/10 rounded-sm">316L BRUSHED</span>
+            <span className="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-white/5 border border-white/10 rounded-sm">200M WATER</span>
           </div>
         </div>
 
@@ -112,18 +112,18 @@ export function HeroCopy({ progress }: HeroCopyProps) {
               : "opacity-0 -translate-y-8 scale-95 pointer-events-none"
           )}
         >
-          <span className="font-mono text-[11px] sm:text-xs tracking-[0.3em] text-champagne uppercase">
+          <span className="font-mono text-[10px] sm:text-xs tracking-[0.3em] text-champagne uppercase">
             Phase 03 // Horological Anatomy
           </span>
-          <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl tracking-[0.12em] text-warm-white font-normal uppercase leading-tight mt-3 sm:mt-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+          <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl tracking-[0.12em] text-warm-white font-normal uppercase leading-tight mt-2 sm:mt-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
             TIME, UNSEALED
           </h2>
-          <p className="font-sans text-stone text-xs sm:text-sm lg:text-base max-w-sm sm:max-w-md leading-relaxed font-light mt-3 sm:mt-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+          <p className="hidden sm:block font-sans text-stone text-xs sm:text-sm lg:text-base max-w-sm sm:max-w-md leading-relaxed font-light mt-3 sm:mt-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
             The knurled bezel lifts in zero gravity. Anti-reflective sapphire crystal separates to reveal the multi-tiered dial architecture beneath.
           </p>
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 mt-5 font-mono text-[10px] sm:text-xs tracking-widest text-champagne/90">
-            <span className="px-3 py-1.5 bg-champagne/10 border border-champagne/20 rounded-sm">SAPPHIRE AR CRYSTAL</span>
-            <span className="px-3 py-1.5 bg-champagne/10 border border-champagne/20 rounded-sm">120-CLICK BEZEL</span>
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 mt-3 sm:mt-5 font-mono text-[9px] sm:text-xs tracking-widest text-champagne/90">
+            <span className="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-champagne/10 border border-champagne/20 rounded-sm">SAPPHIRE AR CRYSTAL</span>
+            <span className="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-champagne/10 border border-champagne/20 rounded-sm">120-CLICK BEZEL</span>
           </div>
         </div>
 
@@ -137,18 +137,18 @@ export function HeroCopy({ progress }: HeroCopyProps) {
               : "opacity-0 -translate-y-8 scale-95 pointer-events-none"
           )}
         >
-          <span className="font-mono text-[11px] sm:text-xs tracking-[0.3em] text-champagne uppercase">
+          <span className="font-mono text-[10px] sm:text-xs tracking-[0.3em] text-champagne uppercase">
             Phase 04 // Internal Caliber
           </span>
-          <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl tracking-[0.12em] text-warm-white font-normal uppercase leading-tight mt-3 sm:mt-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+          <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl tracking-[0.12em] text-warm-white font-normal uppercase leading-tight mt-2 sm:mt-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
             THE ENGINE OF SECONDS
           </h2>
-          <p className="font-sans text-stone text-xs sm:text-sm lg:text-base max-w-sm sm:max-w-md leading-relaxed font-light mt-3 sm:mt-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+          <p className="hidden sm:block font-sans text-stone text-xs sm:text-sm lg:text-base max-w-sm sm:max-w-md leading-relaxed font-light mt-3 sm:mt-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
             Split-second chronograph gearing, date wheel ring, and stepping motor exposed in radial symmetry.
           </p>
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 mt-5 font-mono text-[10px] sm:text-xs tracking-widest text-champagne">
-            <span className="px-3 py-1.5 bg-champagne/10 border border-champagne/20 rounded-sm">QUARTZ CHRONO CALIBER</span>
-            <span className="px-3 py-1.5 bg-champagne/10 border border-champagne/20 rounded-sm">±15 SEC/MO ACCURACY</span>
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 mt-3 sm:mt-5 font-mono text-[9px] sm:text-xs tracking-widest text-champagne">
+            <span className="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-champagne/10 border border-champagne/20 rounded-sm">QUARTZ CHRONO CALIBER</span>
+            <span className="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-champagne/10 border border-champagne/20 rounded-sm">±15 SEC/MO ACCURACY</span>
           </div>
         </div>
 
@@ -162,13 +162,13 @@ export function HeroCopy({ progress }: HeroCopyProps) {
               : "opacity-0 -translate-y-8 scale-95 pointer-events-none"
           )}
         >
-          <span className="font-mono text-[11px] sm:text-xs tracking-[0.3em] text-champagne uppercase">
+          <span className="font-mono text-[10px] sm:text-xs tracking-[0.3em] text-champagne uppercase">
             Phase 05 // Complete Architecture
           </span>
-          <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl tracking-[0.12em] text-warm-white font-normal uppercase leading-tight mt-3 sm:mt-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+          <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl tracking-[0.12em] text-warm-white font-normal uppercase leading-tight mt-2 sm:mt-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
             WE SAIL.
           </h2>
-          <p className="font-sans text-stone text-xs sm:text-sm lg:text-base max-w-sm sm:max-w-md leading-relaxed font-light mt-3 sm:mt-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+          <p className="hidden sm:block font-sans text-stone text-xs sm:text-sm lg:text-base max-w-sm sm:max-w-md leading-relaxed font-light mt-3 sm:mt-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
             A timepiece is not merely an instrument. It is a vessel of intention. Continue scrolling to encounter our curated catalog.
           </p>
           <div className="hidden lg:block mt-8">

@@ -13,28 +13,32 @@ if (typeof window !== "undefined") {
 
 export function HeroScrollController() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    
-    if (prefersReducedMotion) {
-      return;
-    }
+    if (prefersReducedMotion) return;
 
     const container = containerRef.current;
-    if (!container) return;
+    const stage = stageRef.current;
+    if (!container || !stage) return;
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: container,
+        pin: stage,
+        pinSpacing: false,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.4,
+        scrub: 0.3,
         onUpdate: (self) => {
           setProgress(self.progress);
         },
       });
+
+      // Refresh ScrollTrigger after DOM layout stabilizes
+      ScrollTrigger.refresh();
     }, container);
 
     return () => {
@@ -44,8 +48,11 @@ export function HeroScrollController() {
 
   return (
     <div ref={containerRef} className="relative w-full h-[450vh] bg-black">
-      {/* Sticky viewport that stays fixed while scrolling — true full-screen 100vw and 100svh/100vh */}
-      <div className="sticky top-0 w-full h-screen h-[100svh] overflow-hidden bg-black">
+      {/* Sticky / Pinned hero stage — fills viewport 100vw and 100svh / 100vh */}
+      <div 
+        ref={stageRef}
+        className="sticky top-0 w-full h-screen h-[100svh] overflow-hidden bg-black z-10"
+      >
         <HeroEnvironment />
         <HeroSequenceCanvas progress={progress} />
         <HeroCopy progress={progress} />
