@@ -10,7 +10,7 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-obsidian">
+    <div className="flex flex-col min-h-screen bg-transparent">
       {/* SECTION 01: CINEMATIC HERO (Canvas 50-Frame Image Sequence) */}
       <HeroCinematic />
 

@@ -27,6 +27,7 @@ export const metadata: Metadata = {
 
 import { Header } from "@/components/navigation/Header";
 import { Footer } from "@/components/navigation/Footer";
+import { GlobalBackground } from "@/components/motion/GlobalBackground";
 
 export default function RootLayout({
   children,
@@ -38,9 +39,10 @@ export default function RootLayout({
       lang="en"
       className={`${bodoniModa.variable} ${inter.variable} ${spaceGrotesk.variable} antialiased`}
     >
-      <body className="min-h-screen flex flex-col bg-obsidian text-warm-white">
+      <body className="min-h-screen flex flex-col bg-obsidian text-warm-white relative">
+        <GlobalBackground />
         <Header />
-        <main className="flex-1">
+        <main className="flex-1 relative z-10">
           {children}
         </main>
         <Footer />

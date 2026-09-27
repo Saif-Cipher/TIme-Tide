@@ -3,20 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Compass } from "lucide-react";
-import { SoffitCanvas } from "@/components/motion/SoffitCanvas";
 
 export function FinalCTA() {
   return (
-    <section className="relative py-36 md:py-52 px-6 md:px-12 bg-obsidian text-warm-white overflow-hidden border-t border-white/[0.06]">
-      {/* WebGL2 Soffit Animated Horizon Gradient */}
-      <div className="absolute inset-0 z-0 opacity-40 mix-blend-screen pointer-events-none">
-        <SoffitCanvas />
-      </div>
-
-      {/* Atmospheric Gradient Overlays for Seamless Edge Blending */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-obsidian via-transparent to-obsidian pointer-events-none" />
-      <div className="absolute inset-0 z-0 bg-radial-gradient from-transparent via-obsidian/60 to-obsidian pointer-events-none" />
-
+    <section className="relative py-36 md:py-52 px-6 md:px-12 bg-obsidian/60 backdrop-blur-[2px] text-warm-white overflow-hidden border-t border-white/[0.06]">
       {/* Background Watch Atmosphere Composition */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-20">
         <div className="relative w-[800px] h-[800px] max-w-full">
@@ -28,6 +18,7 @@ export function FinalCTA() {
             className="object-contain filter blur-[1px] brightness-75"
           />
         </div>
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-obsidian/60 to-obsidian" />
       </div>
 
       {/* Atmospheric Glow */}

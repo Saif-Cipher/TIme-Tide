@@ -80,7 +80,7 @@ export function FeaturedWatch() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="featured" className="relative w-full py-28 md:py-40 bg-obsidian border-t border-white/[0.05] overflow-hidden">
+    <section ref={sectionRef} id="featured" className="relative w-full py-28 md:py-40 bg-obsidian/60 backdrop-blur-[2px] border-t border-white/[0.05] overflow-hidden">
       {/* Background radial lighting */}
       <div className="absolute top-1/2 left-1/3 -translate-y-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-radial-gradient from-champagne/[0.04] via-transparent to-transparent rounded-full blur-[140px] pointer-events-none" />
 

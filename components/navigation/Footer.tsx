@@ -5,7 +5,7 @@ import { Compass, Mail, Phone, MapPin } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-obsidian border-t border-white/[0.08] pt-24 pb-12 px-6 md:px-12 text-warm-white">
+    <footer className="bg-obsidian/80 backdrop-blur-md border-t border-white/[0.08] pt-24 pb-12 px-6 md:px-12 text-warm-white relative z-10">
       <div className="max-w-[1440px] mx-auto">
         
         {/* Main Footer Grid */}

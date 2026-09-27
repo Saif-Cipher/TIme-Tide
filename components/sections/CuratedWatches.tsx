@@ -15,7 +15,7 @@ export function CuratedWatches() {
   const p7 = demoProducts[7]; // Cairnhill Silver (6-col)
 
   return (
-    <section id="curated" className="py-32 md:py-44 px-6 md:px-12 bg-obsidian text-warm-white">
+    <section id="curated" className="py-32 md:py-44 px-6 md:px-12 bg-obsidian/70 backdrop-blur-[2px] text-warm-white border-t border-white/[0.06]">
       <div className="max-w-[1440px] mx-auto">
         
         {/* Section Header */}

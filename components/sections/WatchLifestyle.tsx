@@ -70,7 +70,7 @@ export function WatchLifestyle() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="lifestyle" className="py-32 md:py-48 px-6 md:px-12 bg-carbon text-warm-white border-t border-white/[0.06] overflow-hidden">
+    <section ref={sectionRef} id="lifestyle" className="py-32 md:py-48 px-6 md:px-12 bg-carbon/65 backdrop-blur-[2px] text-warm-white border-t border-white/[0.06] overflow-hidden">
       <div className="max-w-[1440px] mx-auto">
 
         {/* Section Header */}

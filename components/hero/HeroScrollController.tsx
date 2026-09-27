@@ -48,11 +48,11 @@ export function HeroScrollController() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full h-[450vh] bg-black">
+    <div ref={containerRef} className="relative w-full h-[450vh] bg-transparent">
       {/* Sticky / Pinned hero stage — fills viewport 100vw and 100svh / 100vh */}
       <div
         ref={stageRef}
-        className="sticky top-0 w-full h-screen h-[100svh] overflow-hidden bg-black z-10"
+        className="sticky top-0 w-full h-screen h-[100svh] overflow-hidden bg-obsidian/30 z-10"
       >
         <HeroParallax />
         <HeroEnvironment />

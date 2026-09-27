@@ -43,7 +43,7 @@ export function CollectionStory() {
   const current = stories[activeStory];
 
   return (
-    <section id="collections" className="relative py-32 md:py-48 bg-carbon text-warm-white overflow-hidden border-t border-white/[0.06]">
+    <section id="collections" className="relative py-32 md:py-48 bg-carbon/65 backdrop-blur-[2px] text-warm-white overflow-hidden border-t border-white/[0.06]">
       {/* Background ambient light */}
       <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-champagne/[0.03] rounded-full blur-[160px] pointer-events-none" />
 

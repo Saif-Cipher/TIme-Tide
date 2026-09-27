@@ -54,7 +54,7 @@ export function DesignMaterial() {
   const current = pillars[activeTab];
 
   return (
-    <section id="craftsmanship" className="py-32 md:py-48 px-6 md:px-12 bg-obsidian text-warm-white border-t border-white/[0.06]">
+    <section id="craftsmanship" className="py-32 md:py-48 px-6 md:px-12 bg-obsidian/70 backdrop-blur-[2px] text-warm-white border-t border-white/[0.06]">
       <div className="max-w-[1440px] mx-auto">
         
         {/* Section Header */}

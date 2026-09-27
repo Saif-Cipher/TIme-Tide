@@ -2,7 +2,7 @@
 
 export function PhilosophyStatement() {
   return (
-    <section className="relative py-40 md:py-60 px-6 md:px-12 bg-obsidian text-warm-white overflow-hidden border-t border-white/[0.04]">
+    <section className="relative py-40 md:py-60 px-6 md:px-12 bg-obsidian/60 backdrop-blur-[2px] text-warm-white overflow-hidden border-t border-white/[0.04]">
       {/* Subtle background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-champagne/[0.02] rounded-full blur-[180px] pointer-events-none" />
 

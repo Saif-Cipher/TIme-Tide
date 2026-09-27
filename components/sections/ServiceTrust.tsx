@@ -101,7 +101,7 @@ export function ServiceTrust() {
   }, [commitments]);
 
   return (
-    <section ref={sectionRef} className="py-28 md:py-40 px-6 md:px-12 bg-carbon text-warm-white border-t border-white/[0.06] relative overflow-hidden">
+    <section ref={sectionRef} className="py-28 md:py-40 px-6 md:px-12 bg-carbon/65 backdrop-blur-[2px] text-warm-white border-t border-white/[0.06] relative overflow-hidden">
       <div className="max-w-[1440px] mx-auto relative z-10">
 
         {/* Section Header */}
