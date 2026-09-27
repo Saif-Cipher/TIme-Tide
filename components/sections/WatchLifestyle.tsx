@@ -1,18 +1,78 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { demoProducts } from "@/data/demo-products";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export function WatchLifestyle() {
   const pSteel = demoProducts[0]; // Orient Diver
   const pLeather = demoProducts[2]; // Titan Sapphire
+  const sectionRef = useRef<HTMLElement>(null);
+  const imageWrapperRef = useRef<HTMLDivElement>(null);
+  const imageElementRef = useRef<HTMLImageElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    const section = sectionRef.current;
+    const imgEl = imageElementRef.current;
+    const cardsEl = cardsRef.current;
+    if (!section || !imgEl) return;
+
+    const ctx = gsap.context(() => {
+      // 1. Scroll Parallax on Main Editorial Image
+      gsap.fromTo(
+        imgEl,
+        { yPercent: -12, scale: 1.1 },
+        {
+          yPercent: 12,
+          scale: 1.04,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.2,
+          },
+        }
+      );
+
+      // 2. Subtle counter parallax on supporting product cards
+      if (cardsEl) {
+        gsap.fromTo(
+          cardsEl,
+          { y: 35 },
+          {
+            y: -25,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.5,
+            },
+          }
+        );
+      }
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="lifestyle" className="py-32 md:py-48 px-6 md:px-12 bg-carbon text-warm-white border-t border-white/[0.06] overflow-hidden">
+    <section ref={sectionRef} id="lifestyle" className="py-32 md:py-48 px-6 md:px-12 bg-carbon text-warm-white border-t border-white/[0.06] overflow-hidden">
       <div className="max-w-[1440px] mx-auto">
-        
+
         {/* Section Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end pb-12 border-b border-white/[0.06] mb-16 gap-6">
           <div>
@@ -31,36 +91,42 @@ export function WatchLifestyle() {
 
         {/* Editorial Composition */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
-          
-          {/* Main Large Editorial Lifestyle Image (7 cols) */}
-          <div className="lg:col-span-7 relative min-h-[500px] lg:min-h-[620px] bg-obsidian border border-white/[0.08] overflow-hidden group">
-            <Image
-              src="/images/editorial/lifestyle-wrist.jpg"
-              alt="Time and Tide Lifestyle Editorial"
-              fill
-              sizes="(max-width: 1024px) 100vw, 750px"
-              className="object-cover object-center transition-transform duration-1000 group-hover:scale-105 filter brightness-95"
-            />
+
+          {/* Main Large Editorial Lifestyle Image with Parallax (7 cols) */}
+          <div
+            ref={imageWrapperRef}
+            className="lg:col-span-7 relative min-h-[500px] lg:min-h-[620px] bg-obsidian border border-white/[0.08] overflow-hidden group"
+          >
+            <div className="absolute inset-0 overflow-hidden">
+              <Image
+                ref={imageElementRef}
+                src="/images/editorial/lifestyle-wrist.jpg"
+                alt="Time and Tide Lifestyle Editorial"
+                fill
+                sizes="(max-width: 1024px) 100vw, 750px"
+                className="object-cover object-center filter brightness-95 will-change-transform"
+              />
+            </div>
             {/* Vignette Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-90 pointer-events-none" />
 
             {/* Editorial Caption Box */}
             <div className="absolute bottom-8 left-8 right-8 z-10 flex flex-col gap-3 max-w-lg">
               <span className="font-mono text-[10px] tracking-[0.3em] text-champagne uppercase">
                 EDITORIAL STUDY {"//"} 01
               </span>
-              <p className="font-display text-2xl sm:text-3xl text-warm-white font-normal uppercase leading-tight">
+              <p className="font-display text-2xl sm:text-3xl text-warm-white font-normal uppercase leading-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
                 &ldquo;TIME IS THE ONLY LUXURY YOU CANNOT RENEGOTIATE.&rdquo;
               </p>
-              <span className="font-sans text-xs text-stone tracking-wider font-light">
+              <span className="font-sans text-xs text-stone tracking-wider font-light drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
                 Tailored charcoal wool, brushed stainless steel chronometer, ambient tungsten interior.
               </span>
             </div>
           </div>
 
-          {/* Right Supporting Dual Cards (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col justify-between gap-8">
-            
+          {/* Right Supporting Dual Cards with Counter-Parallax (5 cols) */}
+          <div ref={cardsRef} className="lg:col-span-5 flex flex-col justify-between gap-8 will-change-transform">
+
             {/* Card 1: Sartorial Composure */}
             <div className="bg-obsidian/70 border border-white/[0.06] hover:border-champagne/30 transition-all duration-500 p-8 flex flex-col justify-between flex-1">
               <div className="flex items-center justify-between font-mono text-xs tracking-widest text-stone uppercase">
