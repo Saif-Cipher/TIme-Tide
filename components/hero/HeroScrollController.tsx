@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { HeroSequenceCanvas } from "./HeroSequenceCanvas";
 import { HeroEnvironment } from "./HeroEnvironment";
 import { HeroCopy } from "./HeroCopy";
+import { HeroParallax } from "./HeroParallax";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -49,10 +50,11 @@ export function HeroScrollController() {
   return (
     <div ref={containerRef} className="relative w-full h-[450vh] bg-black">
       {/* Sticky / Pinned hero stage — fills viewport 100vw and 100svh / 100vh */}
-      <div 
+      <div
         ref={stageRef}
         className="sticky top-0 w-full h-screen h-[100svh] overflow-hidden bg-black z-10"
       >
+        <HeroParallax />
         <HeroEnvironment />
         <HeroSequenceCanvas progress={progress} />
         <HeroCopy progress={progress} />

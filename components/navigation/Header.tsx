@@ -24,7 +24,7 @@ export function Header() {
         className={clsx(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
           isScrolled
-            ? "bg-obsidian/90 backdrop-blur-md border-b border-white/[0.06] py-4"
+            ? "bg-obsidian/85 backdrop-blur-lg border-b border-champagne/[0.15] shadow-[inset_0_1px_0_rgba(197,164,109,0.1)] py-4"
             : "bg-gradient-to-b from-obsidian/80 via-obsidian/20 to-transparent py-6"
         )}
       >
