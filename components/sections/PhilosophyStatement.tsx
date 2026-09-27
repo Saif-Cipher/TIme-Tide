@@ -1,5 +1,7 @@
 "use client";
 
+import { RollingText } from "@/components/ui/skiper-ui/skiper27";
+
 export function PhilosophyStatement() {
   return (
     <section className="relative py-40 md:py-60 px-6 md:px-12 bg-obsidian/60 backdrop-blur-[2px] text-warm-white overflow-hidden border-t border-white/[0.04]">
@@ -7,7 +9,7 @@ export function PhilosophyStatement() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-champagne/[0.02] rounded-full blur-[180px] pointer-events-none" />
 
       <div className="max-w-[1200px] mx-auto text-center relative z-10 flex flex-col items-center gap-12">
-        
+
         {/* Top Tag */}
         <div className="flex items-center gap-4 font-mono text-xs tracking-[0.35em] text-champagne uppercase">
           <span className="w-8 h-[1px] bg-champagne/40" />
@@ -15,12 +17,21 @@ export function PhilosophyStatement() {
           <span className="w-8 h-[1px] bg-champagne/40" />
         </div>
 
-        {/* Major Editorial Statement */}
-        <h2 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.06em] text-warm-white uppercase font-normal leading-[1.08] max-w-5xl">
-          TIME IS MORE THAN<br />
-          <span className="text-stone">WHAT THE CLOCK</span><br />
-          SHOWS.
-        </h2>
+        {/* Major Editorial Statement with Skiper27 3D Rolling Typography */}
+        <div className="flex flex-col items-center gap-2 sm:gap-4 max-w-5xl">
+          <RollingText
+            text="TIME IS MORE THAN"
+            className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display uppercase tracking-[0.06em] text-warm-white"
+          />
+          <RollingText
+            text="WHAT THE CLOCK"
+            className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display uppercase tracking-[0.06em] text-stone"
+          />
+          <RollingText
+            text="SHOWS."
+            className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display uppercase tracking-[0.06em] text-champagne"
+          />
+        </div>
 
         {/* Supporting Narrative */}
         <p className="font-sans text-stone text-base sm:text-lg max-w-2xl font-light leading-relaxed tracking-wide">

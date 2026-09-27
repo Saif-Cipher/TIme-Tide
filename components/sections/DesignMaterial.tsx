@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Sliders, Layers, Cpu, Eye } from "lucide-react";
+import { Sliders, Layers, Cpu, Eye, Sparkles } from "lucide-react";
+import { SpringMouseFollow } from "@/components/ui/skiper-ui/skiper61";
 import clsx from "clsx";
 
 export function DesignMaterial() {
@@ -56,7 +57,7 @@ export function DesignMaterial() {
   return (
     <section id="craftsmanship" className="py-32 md:py-48 px-6 md:px-12 bg-obsidian/70 backdrop-blur-[2px] text-warm-white border-t border-white/[0.06]">
       <div className="max-w-[1440px] mx-auto">
-        
+
         {/* Section Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end pb-12 border-b border-white/[0.06] mb-16 gap-6">
           <div>
@@ -103,20 +104,31 @@ export function DesignMaterial() {
 
         {/* Dynamic Display Panel */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center bg-carbon/50 border border-white/[0.06] p-8 md:p-12 relative overflow-hidden">
-          
-          {/* Left Large Photography Display (7 cols) */}
-          <div className="lg:col-span-7 relative h-[380px] sm:h-[480px] w-full overflow-hidden bg-obsidian border border-white/[0.06] group">
-            <Image
-              src={current.image}
-              alt={current.title}
-              fill
-              sizes="(max-width: 1024px) 100vw, 750px"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-80" />
-            <div className="absolute bottom-6 left-6 right-6 font-mono text-[11px] tracking-wider text-soft-metal bg-obsidian/80 backdrop-blur-sm px-4 py-2 border border-white/10">
-              {current.caption}
-            </div>
+
+          {/* Left Large Photography Display with Skiper61 Spring Follower (7 cols) */}
+          <div className="lg:col-span-7">
+            <SpringMouseFollow
+              className="w-full h-[380px] sm:h-[480px] rounded-none bg-obsidian border-white/[0.06]"
+              followerClassName="size-16 bg-champagne/20 border border-champagne/40 blur-[2px]"
+            >
+              <div className="relative w-full h-full overflow-hidden group">
+                <Image
+                  src={current.image}
+                  alt={current.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 750px"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-80 pointer-events-none" />
+                <div className="absolute top-4 right-4 flex items-center gap-2 px-3 py-1 bg-obsidian/80 backdrop-blur-sm border border-white/10 font-mono text-[10px] text-champagne tracking-wider pointer-events-none">
+                  <Sparkles className="w-3 h-3" />
+                  <span>INTERACTIVE LENS</span>
+                </div>
+                <div className="absolute bottom-6 left-6 right-6 font-mono text-[11px] tracking-wider text-soft-metal bg-obsidian/80 backdrop-blur-sm px-4 py-2 border border-white/10 pointer-events-none">
+                  {current.caption}
+                </div>
+              </div>
+            </SpringMouseFollow>
           </div>
 
           {/* Right Pillar Details (5 cols) */}
